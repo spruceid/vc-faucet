@@ -57,6 +57,37 @@ case 'minimal':
 	];
 	break;
 
+case 'open_badge_credible':
+	$issuer = $config['key_did'];
+	$credential = (object)[
+		'@context' => [
+			'https://www.w3.org/2018/credentials/v1',
+			'https://w3c-ccg.github.io/vc-ed/plugfest-1-2022/jff-vc-edu-plugfest-1-context.json'
+		],
+		'id' => $id,
+		'type' => ['VerifiableCredential', 'OpenBadgeCredential'],
+		'issuer' => (object)[
+			'type' => 'Profile',
+			'id' => $issuer,
+			'name' => $offering['issuer_name']
+		],
+		'issuanceDate' => gmdate('Y-m-d\TH:i:s\Z'),
+		'credentialSubject' => (object)[
+			'type' => 'AchievementSubject',
+			'achievement' => (object)[
+				'type' => 'Achievement',
+				'name' => 'I participated in a Credible Protocol Interaction during the JFF Plugfest #1 2022',
+				'description' => 'This wallet can display this Open Badge 3.0',
+				'criteria' => (object)[
+					'type' => 'Criteria',
+					'narrative' => 'Used Credible or compatible wallet to interactively receive a verifiable credential.'
+				],
+				'image' => 'https://demo.didkit.dev/2022/06/achievement.png'
+			]
+		]
+	];
+	break;
+
 default:
 	header('HTTP/1.0 500');
 	die('Unknown credential offering type');

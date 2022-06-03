@@ -11,7 +11,12 @@ $config = [
 		'minimal' => [
 			'button_name' => 'Minimal',
 			'type' => 'minimal'
+		],
+		'open_badge_credible' => [
+			'button_name' => 'Open Badge Credible Protocol Interaction',
+			'issuer_name' => 'Example Demo Server',
+			'type' => 'open_badge_credible',
 		]
-	]
+	],
 ];
 ?>
