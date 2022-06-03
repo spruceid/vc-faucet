@@ -9,10 +9,9 @@ $config = [
 	'default_offering' => 'minimal',
 	'offerings' => [
 		'minimal' => [
-			'button_name' => 'Get Credential (Minimal)',
+			'button_name' => 'Minimal',
 			'type' => 'minimal'
 		]
 	]
 ];
 ?>
-
