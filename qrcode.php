@@ -1,6 +1,6 @@
 <?php
 // http://phpqrcode.sourceforge.net/
-define('QR_CACHEABLE', false);
+// define('QR_CACHEABLE', false);
 define('QR_CACHE_DIR', 'cache');
 include '/usr/share/phpqrcode/qrlib.php';
 $url = @$_GET['url'];

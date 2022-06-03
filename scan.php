@@ -10,19 +10,19 @@
 require_once 'config.php';
 
 $get_credential = @$_POST['get_credential'];
-$offering = $config['default_offering'];
+$offering = null;
 if (is_array($get_credential)) {
 	foreach ($get_credential as $key => $_value) {
 		if ($offering) die('Only one credential may be issued per request.');
 		$offering = $key;
 	}
 }
+if (!$offering) $offering = $config['default_offering'];
 
 $id = 'urn:uuid:'.uuid_create();
 $expires = time() + 60*15;
 $key = $config['hmac_secret'];
-$query = "id=$id&expires=$expires";
-$query .= "&offering=$offering";
+$query = "id=$id&expires=$expires&offering=$offering";
 $hmac = hash_hmac('sha256', $query, $key);
 $query .= "&hmac=$hmac";
 $origin = @$_SERVER['HTTP_ORIGIN'];

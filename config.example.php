@@ -9,10 +9,8 @@ $config = [
 	'default_offering' => 'minimal',
 	'offerings' => [
 		'minimal' => [
-		],
-		'ob-static-ex1' => [
-		],
-		'ob-static-ex2' => [
+			'button_name' => 'Get Credential (Minimal)',
+			'type' => 'minimal'
 		]
 	]
 ];
