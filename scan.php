@@ -14,7 +14,14 @@ $key = $config['hmac_secret'];
 $query = "id=$id&expires=$expires";
 $hmac = hash_hmac('sha256', $query, $key);
 $query .= "&hmac=$hmac";
-$self_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$origin = @$_SERVER['HTTP_ORIGIN'];
+if (!$origin) {
+	$scheme = $_SERVER['REQUEST_SCHEME'];
+	if (!$scheme) $scheme = 'http';
+	$host = $_SERVER['HTTP_HOST'];
+	$origin = $scheme.'://'.$host;
+}
+$self_url = $origin.$_SERVER['REQUEST_URI'];
 $offer_url = dirname($self_url).'/offer.php?'.$query;
 ?>
 	<p>Scan with credential wallet:</p>
