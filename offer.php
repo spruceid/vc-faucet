@@ -3,12 +3,19 @@ ini_set('display_errors', 1);
 $id = @$_GET['id'];
 $expires = @$_GET['expires'];
 $hmac = @$_GET['hmac'];
+$offering_id = @$_GET['offering'];
 if (!$id || !$expires || !$hmac) {
 	header('HTTP/1.0 400 Bad Request');
 	die('Missing request parameters');
 }
 $query = "id=$id&expires=$expires";
 require_once 'config.php';
+if (!$offering_id) $offering_id = $config['default_offering'];
+$offering = $config['offerings'][$offering_id];
+if (!$offering) {
+	header('HTTP/1.0 400 Bad Request');
+	die('Unable to find offering.');
+}
 $key = $config['hmac_secret'];
 if (time() > $expires) {
 	header('HTTP/1.0 410 Gone');

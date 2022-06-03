@@ -5,7 +5,16 @@ $config = [
 	'vm' => 'did:example:changeme#key-1',
 	'trusted_issuers' => [
 	],
-	'key_filename' => $_SERVER['HOME'].'/.config/didkit/key.jwk'
+	'key_filename' => $_SERVER['HOME'].'/.config/didkit/key.jwk',
+	'default_offering' => 'minimal',
+	'offerings' => [
+		'minimal' => [
+		],
+		'ob-static-ex1' => [
+		],
+		'ob-static-ex2' => [
+		]
+	]
 ];
 ?>
 
