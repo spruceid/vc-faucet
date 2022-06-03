@@ -23,7 +23,7 @@ header('Content-Type: application/json');
 $credential_expires = time() + 60*60*24*30;
 $issuer = $config['key_did'];
 $credential = (object)[
-	'@context' => ['https://www.w3.org/2018/credentials/v1', 'https://schema.org/'],
+	'@context' => ['https://www.w3.org/2018/credentials/v1'],
 	'id' => $id,
 	'type' => 'VerifiableCredential',
 	'issuer' => $issuer,
