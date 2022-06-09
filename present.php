@@ -9,7 +9,9 @@
 	<p>Scan to present your credential.</p>
 	<p>Nothing will happen here when you present the credential; this is just for testing your client.</p>
 <?php
-$self_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$scheme = $_SERVER['REQUEST_SCHEME'];
+if (!$scheme) $scheme = 'http';
+$self_url = $scheme.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $vp_request_url = dirname($self_url).'/vp_request.php';
 ?>
 	<p><a href="<?=$vp_request_url?>">
@@ -18,4 +20,3 @@ $vp_request_url = dirname($self_url).'/vp_request.php';
 	<p><a href=".">Back</a></p>
 </body>
 </html>
-

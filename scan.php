@@ -8,13 +8,31 @@
 	<h1>Credential Offer</h1>
 <?php
 require_once 'config.php';
+
+$get_credential = @$_POST['get_credential'];
+$offering = null;
+if (is_array($get_credential)) {
+	foreach ($get_credential as $key => $_value) {
+		if ($offering) die('Only one credential may be issued per request.');
+		$offering = $key;
+	}
+}
+if (!$offering) $offering = $config['default_offering'];
+
 $id = 'urn:uuid:'.uuid_create();
 $expires = time() + 60*15;
 $key = $config['hmac_secret'];
-$query = "id=$id&expires=$expires";
+$query = "id=$id&expires=$expires&offering=$offering";
 $hmac = hash_hmac('sha256', $query, $key);
 $query .= "&hmac=$hmac";
-$self_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$origin = @$_SERVER['HTTP_ORIGIN'];
+if (!$origin) {
+	$scheme = $_SERVER['REQUEST_SCHEME'];
+	if (!$scheme) $scheme = 'http';
+	$host = $_SERVER['HTTP_HOST'];
+	$origin = $scheme.'://'.$host;
+}
+$self_url = $origin.$_SERVER['REQUEST_URI'];
 $offer_url = dirname($self_url).'/offer.php?'.$query;
 ?>
 	<p>Scan with credential wallet:</p>
